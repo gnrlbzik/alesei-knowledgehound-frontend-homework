@@ -1,0 +1,10 @@
+{
+  "name": "alesei-knowledgehound-frontend-homework",
+  "version": "0.0.1",
+  "description": "Alesei's Front-End Homework For KnowledgeHound",
+  "main": "index.js",
+  "repository": "https://gnrlbzik@bitbucket.org/gnrlbzik/alesei-knowledgehound-frontend-homework.git",
+  "author": "gnrlbzik@gmail.com",
+  "license": "MIT",
+  "private": true
+}
