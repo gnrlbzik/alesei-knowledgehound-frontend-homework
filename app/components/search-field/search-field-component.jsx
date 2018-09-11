@@ -4,48 +4,50 @@ import FetchApi from '../../services/fetch-api';
 import SearchResultsComponent from '../search-results/search-results-component';
 
 class SearchFieldComponent extends React.Component {
-    constructor () {
-        super();
-        this.state = {
-            searchResults: []
-            ,searchQuery: ''
-            ,fetchApiInprogress: false
-        };
-    }
+  constructor () {
+    super();
+    this.state = {
+      searchResults: []
+      ,searchQuery: ''
+      ,fetchApiInprogress: false
+    };
+  }
 
-    handleSearchFieldKeyUp = (event) => {
-        switch (event.key) {
-            case 'Enter':
-                const searchFieldRef = this.refs.searchField;
-                this.fetchResults(searchFieldRef.value);
-                break;
-            default:
-                // do nothing
-        }
+  componentDidMount () {
+
+  }
+
+  handleSearchFieldKeyUp = (event) => {
+    switch (event.key) {
+      case 'Enter':
+        this.fetchResults(this.searchFieldInputRef.value);
+        break;
+      default:
+        // do nothing
     }
+  }
 
     handleSearchButtonClick = () => {
-        const searchFieldRef = this.refs.searchField;
-        this.fetchResults(searchFieldRef.value);
+      this.fetchResults(this.searchFieldInputRef.value);
     }
 
     fetchResults (searchQuery) {
-        this.setState({fetchApiInprogress: true});
-        FetchApi
-            .searchApi(searchQuery)
-            .then(jsonResponse => {
-                this.setState({searchResults: jsonResponse.results, searchQuery: searchQuery, fetchApiInprogress: false});
-            });
+      this.setState({fetchApiInprogress: true});
+      FetchApi
+        .searchApi(searchQuery)
+        .then(jsonResponse => {
+          this.setState({searchResults: jsonResponse.results, searchQuery: searchQuery, fetchApiInprogress: false});
+        });
     }
 
     render () {
-        return (
-            <div>
-                <input placeholder="Search The Api" onKeyUp={this.handleSearchFieldKeyUp} ref="searchField" /><button onClick={this.handleSearchButtonClick}>Go!</button>
-                { this.state.fetchApiInprogress ? <div>Loading</div> : null}
-                <SearchResultsComponent searchResults={this.state.searchResults} searchQuery={this.state.searchQuery} />
-            </div>
-        );
+      return (
+        <div>
+          <input placeholder="Search The Api" onKeyUp={this.handleSearchFieldKeyUp} ref={(c) => { this.searchFieldInputRef = c; }} /><button onClick={this.handleSearchButtonClick}>Go!</button>
+          { this.state.fetchApiInprogress ? <div>Loading</div> : null}
+          <SearchResultsComponent searchResults={this.state.searchResults} searchQuery={this.state.searchQuery} />
+        </div>
+      );
     }
 }
 

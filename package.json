@@ -10,14 +10,16 @@
   "scripts": {
     "watch": "parcel app/index.html",
     "test": "exit 1",
-    "lint": "eslint app/"
+    "lint": "eslint app --ext js,jsx"
   },
   "dependencies": {
+    "babel-eslint": "^9.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "eslint": "^5.5.0",
     "eslint-plugin-react": "^7.11.1",
     "node-sass": "^4.9.3",
+    "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "whatwg-fetch": "^2.0.4"
