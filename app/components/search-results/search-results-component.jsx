@@ -1,8 +1,7 @@
 import React from 'react';
 import I18N from '../../i18n-messages';
 
-class ApiSearchResultsComponent extends React.Component {
-
+class SearchResultsComponent extends React.Component {
 
     displayExplanations (explanations) {
 
@@ -69,4 +68,4 @@ class ApiSearchResultsComponent extends React.Component {
     }
 }
 
-export default ApiSearchResultsComponent;
+export default SearchResultsComponent;

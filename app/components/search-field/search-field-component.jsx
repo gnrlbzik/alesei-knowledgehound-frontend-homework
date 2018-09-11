@@ -1,9 +1,9 @@
 import React from 'react';
 import FetchApi from '../../services/fetch-api';
 
-import ApiSearchResultsComponent from '../api-search-results/api-search-results-component';
+import SearchResultsComponent from '../search-results/search-results-component';
 
-class ApiSearchFieldComponent extends React.Component {
+class SearchFieldComponent extends React.Component {
     constructor () {
         super();
         this.state = {
@@ -43,10 +43,10 @@ class ApiSearchFieldComponent extends React.Component {
             <div>
                 <input placeholder="Search The Api" onKeyUp={this.handleSearchFieldKeyUp} ref="searchField" /><button onClick={this.handleSearchButtonClick}>Go!</button>
                 { this.state.fetchApiInprogress ? <div>Loading</div> : null}
-                <ApiSearchResultsComponent searchResults={this.state.searchResults} searchQuery={this.state.searchQuery} />
+                <SearchResultsComponent searchResults={this.state.searchResults} searchQuery={this.state.searchQuery} />
             </div>
         );
     }
 }
 
-export default ApiSearchFieldComponent;
+export default SearchFieldComponent;
