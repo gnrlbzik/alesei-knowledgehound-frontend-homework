@@ -19,4 +19,4 @@
 - in project directory run
     - ```$ yarn run watch```
     - check terminal output for "http://localhost:{port}"
-        - should see message: "Server running at http://localhost:1234", unless port is blocked, then will parcel will assign different port 
+        - should see message: "Server running at http://localhost:1234", unless port is blocked, then parcel will assign different port 

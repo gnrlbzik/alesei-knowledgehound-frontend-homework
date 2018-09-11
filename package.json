@@ -8,8 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "watch": "parcel app/index.html",
-    "open": "parcel app/index.html & open http://localhost:1234"
+    "watch": "parcel app/index.html"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
