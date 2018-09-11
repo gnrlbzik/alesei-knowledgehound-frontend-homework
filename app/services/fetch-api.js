@@ -17,7 +17,7 @@ const FetchApi = {
         });
     },
 
-    search (query) {
+    searchApi (query) {
         return fetch(`https://api.knowledgehound.com/search/?query=${query}&type=question&group_duplicates=true`, {
             method: 'GET'
             ,headers: {

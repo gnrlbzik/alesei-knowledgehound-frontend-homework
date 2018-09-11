@@ -4,20 +4,37 @@ import FetchApi from '../../services/fetch-api';
 import ApiSearchResultsComponent from '../api-search-results/api-search-results-component';
 
 class ApiSearchFieldComponent extends React.Component {
-
     constructor () {
         super();
         this.state = {
-            results: null
+            searchResults: []
+            ,searchQuery: ''
+            ,fetchApiInprogress: false
         };
+    }
+
+    handleSearchFieldKeyUp = (event) => {
+        switch (event.key) {
+            case 'Enter':
+                const searchFieldRef = this.refs.searchField;
+                this.fetchResults(searchFieldRef.value);
+                break;
+            default:
+                // do nothing
+        }
     }
 
     handleSearchButtonClick = () => {
         const searchFieldRef = this.refs.searchField;
+        this.fetchResults(searchFieldRef.value);
+    }
+
+    fetchResults (searchQuery) {
+        this.setState({fetchApiInprogress: true});
         FetchApi
-            .search(searchFieldRef.value)
+            .searchApi(searchQuery)
             .then(jsonResponse => {
-                this.setState({results: jsonResponse.results});
+                this.setState({searchResults: jsonResponse.results, searchQuery: searchQuery, fetchApiInprogress: false});
             });
     }
 
@@ -25,7 +42,8 @@ class ApiSearchFieldComponent extends React.Component {
         return (
             <div>
                 <input placeholder="Search The Api" onKeyUp={this.handleSearchFieldKeyUp} ref="searchField" /><button onClick={this.handleSearchButtonClick}>Go!</button>
-                <ApiSearchResultsComponent results={this.state.results} />
+                { this.state.fetchApiInprogress ? <div>Loading</div> : null}
+                <ApiSearchResultsComponent searchResults={this.state.searchResults} searchQuery={this.state.searchQuery} />
             </div>
         );
     }
