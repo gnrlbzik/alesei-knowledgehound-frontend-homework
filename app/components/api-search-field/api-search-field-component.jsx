@@ -5,17 +5,27 @@ import ApiSearchResultsComponent from '../api-search-results/api-search-results-
 
 class ApiSearchFieldComponent extends React.Component {
 
-    // {FetchApi.search()}
+    constructor () {
+        super();
+        this.state = {
+            results: null
+        };
+    }
 
     handleSearchButtonClick = () => {
-        console.log(this.refs.searchField.val);
+        const searchFieldRef = this.refs.searchField;
+        FetchApi
+            .search(searchFieldRef.value)
+            .then(jsonResponse => {
+                this.setState({results: jsonResponse.results});
+            });
     }
 
     render () {
         return (
             <div>
                 <input placeholder="Search The Api" onKeyUp={this.handleSearchFieldKeyUp} ref="searchField" /><button onClick={this.handleSearchButtonClick}>Go!</button>
-                <ApiSearchResultsComponent results="{this.state.resutls}" />
+                <ApiSearchResultsComponent results={this.state.results} />
             </div>
         );
     }
