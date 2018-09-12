@@ -1,13 +1,14 @@
 import React from 'react';
+import I18N from '../../i18n-messages';
 
 import SearchFieldComponent from '../search-field/search-field-component';
 
 function RootAppComponent () {
   return (
-    <div>
-      <h1>Feel free to search!</h1>
+    <React.Fragment>
+      <h1 id="welcome-title">{I18N.welcomeTitle}</h1>
       <SearchFieldComponent />
-    </div>
+    </React.Fragment>
   );
 }
 

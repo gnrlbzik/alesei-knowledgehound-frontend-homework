@@ -23,12 +23,12 @@ class SearchResultsComponent extends React.Component {
     });
 
     return (
-      <div>
-        <b>Found in responses:</b>
+      <React.Fragment>
+        <b className="found-in-title">Found in responses:</b>
         <ul>
           {responses}
         </ul>
-      </div>
+      </React.Fragment>
     );
   }
 
@@ -39,18 +39,18 @@ class SearchResultsComponent extends React.Component {
 
     if (searchResults.length === 0 && searchQuery.length > 0) {
       listOfResults.push(
-        <div key="message">{I18N.noMatchingResults(searchQuery)}</div>
+        <section key="message">{I18N.noMatchingResults(searchQuery)}</section>
       );
     } else {
       const mappedSearchResults = this.props.searchResults.map(searchResultValue => {
         return (
-          <div key={searchResultValue.id}>
-            <div><a href={searchResultValue.link} target="_blank" rel='noreferrer noopener'>{searchResultValue.question}</a></div>
-            <div><a href={searchResultValue.study.link} target="_blank" rel='noreferrer noopener'>{searchResultValue.study.name}</a> - {searchResultValue.study.study_date}</div>
+          <section key={searchResultValue.id}>
+            <a className="result-link" href={searchResultValue.link} target="_blank" rel='noreferrer noopener'>{searchResultValue.question}</a>
+            <div><a className="study-link" href={searchResultValue.study.link} target="_blank" rel='noreferrer noopener'>{searchResultValue.study.name}</a> - {searchResultValue.study.study_date}</div>
             {searchResultValue.explanation.length > 0 ?
               this.displayExplanations(searchResultValue.explanation)
               : null}
-          </div>
+          </section>
         );
       });
 
@@ -60,11 +60,29 @@ class SearchResultsComponent extends React.Component {
     return listOfResults;
   }
 
+  displaySearchResultsBox () {
+    const searchQuery = this.props.searchQuery;
+    const fetchApiInprogress = this.props.fetchApiInprogress;
+
+    if (searchQuery.length > 0 && !fetchApiInprogress) {
+      return (
+        <div id="matching-results">
+          <h2 id="matching-results-title">{I18N.searchQueryMatchingResultsTitle}</h2>
+          <div id="matching-results-contents">
+            {this.displaySearchResults()}
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render () {
     return (
-      <div>
-        {this.displaySearchResults()}
-      </div>
+      <React.Fragment>
+        {this.displaySearchResultsBox()}
+      </React.Fragment>
     );
   }
 }
@@ -72,6 +90,7 @@ class SearchResultsComponent extends React.Component {
 SearchResultsComponent.propTypes = {
   searchResults: PropTypes.array
   ,searchQuery: PropTypes.string
+  ,fetchApiInprogress: PropTypes.bool
 };
 
 export default SearchResultsComponent;
